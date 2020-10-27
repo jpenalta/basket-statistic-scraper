@@ -18,7 +18,7 @@ HEADER_LIST = ['league','game_date','local_team','local_team_points'
                ,'one_point_shots_get','one_point_shots_made'
                ,'two_point_shots_get','two_point_shots_made'
                ,'three_point_shots_get','three_point_shots_made'
-               ,'rebouts','assists','faults','received_faults']
+               ,'rebouts','assists','fouls','received_fouls']
 
 def getArgs():
     parser = argparse.ArgumentParser()

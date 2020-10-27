@@ -1,5 +1,5 @@
-# foodPriceScraper
-## EspaÃ±ol
+# basketPlayerScraper
+## Español
 
 Extrea datos estadísticos de jugadores de distintas ligas profesionales de balonesto
 
@@ -38,8 +38,9 @@ El csv tiene los siguientes campos:
 * 'three_point_shots_made': Tiros de tres puntos realizados
 * 'rebouts': Rebotes capturados
 * 'assists': Asistencias repartidas
-* 'faults': Faltas cometidas
-* 'received_faults': Faltas recibidas
+* 'fouls': Faltas cometidas
+* 'received_fouls': Faltas recibidas
+
 
 ## English
 

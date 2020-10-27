@@ -16,8 +16,8 @@ SHOT2_FIELD = 6
 SHOT3_FIELD = 8
 REBOUTS_FIELD = 10
 ASSISTS_FIELD = 12
-FAULTS_FIELD = 19
-FAULTS_RECEIBED_FIELD = 20
+FOULS_FIELD = 19
+FOULS_RECEIVED_FIELD = 20
 ACB_NAME='ACB'
 
 STATISTICS_URL = 'http://acb.com/partido/estadisticas/id/{0}' 
@@ -62,8 +62,8 @@ class ACBScraper:
             shot_3 = self.getField(fields, SHOT3_FIELD)
             rebouts = self.getField(fields, REBOUTS_FIELD)
             assists = self.getField(fields, ASSISTS_FIELD)
-            faults = self.getField(fields, FAULTS_FIELD)
-            faults_receibed = self.getField(fields, FAULTS_RECEIBED_FIELD)
+            faults = self.getField(fields, FOULS_FIELD)
+            faults_receibed = self.getField(fields, FOULS_RECEIVED_FIELD)
             
             field_list.append(player_name)
             field_list.append(time)
