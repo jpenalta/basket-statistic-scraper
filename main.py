@@ -9,7 +9,7 @@ Created on Mon Oct 26 18:16:11 2020
 import os
 import csv
 import argparse
-from  ACBEstatisticsScraper import ACBScraper
+from  ACBStatisticsScraper import ACBScraper
 import logging
 
 HEADER_LIST = ['league','game_date','local_team','local_team_points'
@@ -46,7 +46,7 @@ def getLogger():
     # add ch to logger
     logger.addHandler(ch)
     
-    return looger
+    return logger
 
 
 logger = getLogger()
@@ -65,7 +65,7 @@ player_list.append(HEADER_LIST)
 
 logger.info('Create file {0}'.format(filename))
     
-logger.info('Get players from {0} between season {1} and season {2}'.format(leagues, start_season, end_season))
+logger.info('Get players from {0} between season {1} and season {2}'.format(league, start_season, end_season))
 
 if( start_season <= end_season):
     acb = ACBScraper(logger)
