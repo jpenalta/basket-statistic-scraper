@@ -14,11 +14,11 @@ El script se debe ejecutar de la siguiente manera:
 python main.py --startSeason 2019 --endSeason 2020 --league acb
 ```
 
-Donde **startSeason** es la temporada de inicio y **endSeason** es la temporada de fin de las que se van a extraer los datos. **league** determina de que liga profesional se extraen los datos.Asistencias
-Los registros se almacenan en un archivo de tipo CSV, con el nombre "players_league_startSeason_endSeason.csv
+Donde **startSeason** es la temporada de inicio y **endSeason** es la temporada de fin de las que se van a extraer los datos. 
+**league** determina de que liga profesional se extraen los datos.
+Los registros se almacenan en un archivo de tipo CSV, con el nombre "players_league_startSeason_endSeason.csv".
 
 El csv tiene los siguientes campos:
-
 
 * 'league': Liga de la que se extraen los datos
 * 'game_date': Fecha en la que se jugó el partido,
