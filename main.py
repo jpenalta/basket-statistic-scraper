@@ -9,7 +9,7 @@ Created on Mon Oct 26 18:16:11 2020
 import os
 import csv
 import argparse
-from  ACBStatisticsScraper import ACBScraper
+from LeagueScraperFactory import ScraperFactory
 import logging
 
 HEADER_LIST = ['league','game_date','local_team','local_team_points'
@@ -64,16 +64,19 @@ player_list = []
 player_list.append(HEADER_LIST)
 
 logger.info('Create file {0}'.format(filename))
-    
-logger.info('Get players from {0} between season {1} and season {2}'.format(league, start_season, end_season))
 
 if( start_season <= end_season):
-    acb = ACBScraper(logger)
-    for season in range(start_season,end_season+1):
+    logger.info('Get players from {0} between season {1} and season {2}'
+                .format(league, start_season, end_season))
+    scraperFactory= ScraperFactory(logger)
+    league = scraperFactory.getInstance(league)
+    
+    for season in range(start_season, end_season+1):
         logging.info("Get season {0}".format(season)) 
-        player_list = player_list + acb.getSeasonPlayers(season)
+        player_list = player_list + league.getSeasonPlayers(season)
+        
 else:
-    print("StarSeason must be lower or equal than endSeason")
+    print("starSeason must be lower or equal than endSeason")
     
 with open(filePath, 'w', newline='') as csvFile:
   writer = csv.writer(csvFile)
