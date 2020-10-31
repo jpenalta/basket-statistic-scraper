@@ -24,15 +24,13 @@ STATISTICS_URL = 'http://acb.com/partido/estadisticas/id/{0}'
 GAMES_URL = 'http://acb.com/club/partidos/id/{0}/temporada_id/{1}/filtro_id/4'
 SEASON_TEAMS_URL = 'http://acb.com/club/index/temporada_id/{0}'
 
-    
-
 class ACBScraper:
     
     def __init__(self, logger):
         self.logger = logger
 
     def isPlayer(self, fields):
-        return len(fields)>5 and fields[1].text!='Total'
+        return len(fields)>5 and fields[1].text!='Total'  and fields[1].text!='Equipo' and fields[1].text!='Equipo'
     
     def isEmptyField(self, value):
         return value == None or value =='\xa0'
