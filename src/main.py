@@ -19,6 +19,7 @@ HEADER_LIST = ['league','game_date','local_team','local_team_points'
                ,'two_point_shots_get','two_point_shots_made'
                ,'three_point_shots_get','three_point_shots_made'
                ,'rebouts','assists','fouls','received_fouls']
+FILE_PATTER = "players_{0}_{1}_{2}.csv"
 
 def getArgs():
     parser = argparse.ArgumentParser()
@@ -48,39 +49,50 @@ def getLogger():
     
     return logger
 
+def getfilePaht(league, start_season, end_season):
+    current_dir = os.path.dirname(__file__)
+    filename = FILE_PATTER.format(league, start_season, end_season)
+    return os.path.join(current_dir, filename)
+        
+
+def writeToCSV(file_path, player_list):
+    with open(file_path, 'w', newline='') as csvFile:
+        writer = csv.writer(csvFile)
+        for player in player_list:
+            writer.writerow(player)
 
 logger = getLogger()
 args = getArgs()
 
+logger.info("Get args from command line")
 league = args.league
 start_season = int(args.startSeason)
 end_season = int(args.endSeason)
 
-currentDir = os.path.dirname(__file__)
-filename = "players_{0}_{1}_{2}.csv".format(league, start_season, end_season)
-filePath = os.path.join(currentDir, filename)
+file_path = getfilePaht(league, start_season, end_season)
 
-player_list = []
-player_list.append(HEADER_LIST)
 
-logger.info('Create file {0}'.format(filename))
+logger.info('Create file {0}'.format(file_path))
+
+writeToCSV(file_path, [ HEADER_LIST ])
+
 
 if( start_season <= end_season):
     logger.info('Get players from {0} between season {1} and season {2}'
                 .format(league, start_season, end_season))
+    
+    logger.info('Get instance for {0} league'. format(league))
     scraperFactory= ScraperFactory(logger)
     league = scraperFactory.getInstance(league)
-    
+      
     for season in range(start_season, end_season+1):
         logging.info("Get season {0}".format(season)) 
-        player_list = player_list + league.getSeasonPlayers(season)
-        
+        player_list = league.getSeasonPlayers(season)
+        writeToCSV(file_path, player_list)
+              
 else:
     print("starSeason must be lower or equal than endSeason")
     
-with open(filePath, 'w', newline='') as csvFile:
-  writer = csv.writer(csvFile)
-  for player in player_list:
-    writer.writerow(player)
+
 
 
