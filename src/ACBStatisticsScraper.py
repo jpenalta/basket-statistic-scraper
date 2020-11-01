@@ -100,6 +100,8 @@ class ACBScraper:
     
     def getGamePlayers(self, game_id):
         game_data = []
+        local_players = []
+        visit_players = []
         
         response= requests.get( STATISTICS_URL.format(game_id))  
         soup = BeautifulSoup(response.text,"html.parser")
@@ -107,21 +109,21 @@ class ACBScraper:
         date = soup.find('div', {'class':'datos_evento'}).find("span").text
         
         teams = soup.findAll('section', {'class':'partido'})
+        if teams:
+            local_team = teams[0].find('h6').text.split('\xa0\xa0')
+            visit_team = teams[1].find('h6').text.split('\xa0\xa0')
         
-        local_team = teams[0].find('h6').text.split('\xa0\xa0')
-        visit_team = teams[1].find('h6').text.split('\xa0\xa0')
-        
-        game_data.append(ACB_NAME)
-        game_data.append(date)
+            game_data.append(ACB_NAME)
+            game_data.append(date)
     
-        game_data = game_data + local_team
-        game_data = game_data + visit_team
+            game_data = game_data + local_team
+            game_data = game_data + visit_team
       
-        game_data.append('local')
-        local_players = self.getTeamPlayer(game_data, teams[0])
+            game_data.append('local')
+            local_players = self.getTeamPlayer(game_data, teams[0])
         
-        game_data[6] ='visit'
-        visit_players = self.getTeamPlayer(game_data, teams[1])
+            game_data[6] ='visit'
+            visit_players = self.getTeamPlayer(game_data, teams[1])
          
         return local_players + visit_players
      
@@ -133,12 +135,13 @@ class ACBScraper:
         games_ids=[]
      
         games = soup.findAll('td',{'class':'partido'})
-        
-        for game in games:
-            my_team = game.findAll('span',{'class':'abreviatura'})[0]
-
-            if my_team.find('a',{'class':'mi_equipo'}): 
-               games_ids.append(my_team.a.get('href').split('/')[4])
+        if games:
+            for game in games:
+                my_team = game.findAll('span',{'class':'abreviatura'})[0]
+                if my_team.find('a',{'class':'mi_equipo'}):
+                    game_link = my_team.a.get('href')
+                    if game_link.startswith('/partido/ver/id'):
+                        games_ids.append(my_team.a.get('href').split('/')[4])
                   
         return games_ids
     
