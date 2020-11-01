@@ -56,7 +56,7 @@ def getfilePaht(league, start_season, end_season):
         
 
 def writeToCSV(file_path, player_list):
-    with open(file_path, 'w', newline='') as csvFile:
+    with open(file_path, 'a', newline='') as csvFile:
         writer = csv.writer(csvFile)
         for player in player_list:
             writer.writerow(player)
