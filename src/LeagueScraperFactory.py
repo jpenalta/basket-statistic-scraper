@@ -5,9 +5,11 @@ Created on Wed Oct 28 08:03:57 2020
 
 @author: juanpr
 """
-from  ACBStatisticsScraper import ACBScraper
+from ACBStatisticsScraper import ACBScraper
+from LegaStatisticsScraper import LegaScraper
 
 ACB = "acb"
+LEGA = "lega"
 
 class ScraperFactory:
     
@@ -18,8 +20,10 @@ class ScraperFactory:
         
         factory = None
         
-        if(league == ACB): 
+        if league == ACB: 
             factory = ACBScraper(self.logger)
+        elif league == LEGA:
+            factory = LegaScraper(self.logger)
         else: 
             self.logger.error("The factory not exists, valid factorys are: acb,...")
                
