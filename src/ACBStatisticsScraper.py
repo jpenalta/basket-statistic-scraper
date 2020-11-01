@@ -131,12 +131,15 @@ class ACBScraper:
         soup = BeautifulSoup(response.text,"html.parser")
         
         games_ids=[]
-    
-        games = soup.find('table', {'class':'roboto_light'})
-        games = games.findAll('div', {'class':'casa'})
-        for game in games:
-            games_ids.append(game.a.get('href').split('/')[4])
+     
+        games = soup.findAll('td',{'class':'partido'})
         
+        for game in games:
+            my_team = game.findAll('span',{'class':'abreviatura'})[0]
+
+            if my_team.find('a',{'class':'mi_equipo'}): 
+               games_ids.append(my_team.a.get('href').split('/')[4])
+                  
         return games_ids
     
     def getSeasonTeams(self, season):
