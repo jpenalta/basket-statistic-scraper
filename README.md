@@ -15,7 +15,7 @@ python main.py --startSeason 2019 --endSeason 2020 --league acb
 ```
 
 Donde **startSeason** es la temporada de inicio y **endSeason** es la temporada de fin de las que se van a extraer los datos. 
-**league** determina de que liga profesional se extraen los datos.
+**league** determina de que liga profesional se extraen los datos, sólo ser permite por el momento acb (liga española) y lega (liga italiana).
 Los registros se almacenan en un archivo de tipo CSV, con el nombre "players_league_startSeason_endSeason.csv".
 
 El csv tiene los siguientes campos:
@@ -44,4 +44,10 @@ El csv tiene los siguientes campos:
 
 ## English
 
+Extract statistic data from players for profesionals basketball leagues
+
+For execute the script install de library:
+```
+
+pip install beautifulsoup4
 ...
