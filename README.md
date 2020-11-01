@@ -44,7 +44,7 @@ El csv tiene los siguientes campos:
 
 ## English
 
-Extract statistic data from players for profesionals basketball leagues
+Extract statistic data for players from profesionals basketball leagues
 
 For execute the script install de library:
 ```
