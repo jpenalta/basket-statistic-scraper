@@ -3,7 +3,7 @@
 """
 Created on Sun Nov  1 14:59:20 2020
 
-@author: juanpr
+@author: Juan Penalta Rodríguez y Michaelle Valenzuela Sangoquiza
 """
 
 from bs4 import BeautifulSoup

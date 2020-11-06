@@ -3,7 +3,7 @@
 """
 Created on Wed Oct 28 08:03:57 2020
 
-@author: juanpr
+@author: Juan Penalta Rodríguez y Michaelle Valenzuela Sangoquiza
 """
 from ACBStatisticsScraper import ACBScraper
 from LegaStatisticsScraper import LegaScraper

@@ -3,7 +3,7 @@
 """
 Created on Fri Nov  6 19:54:24 2020
 
-@author: juanpr
+@author: Juan Penalta Rodríguez y Michaelle Valenzuela Sangoquiza
 """
 import logging
 import os
