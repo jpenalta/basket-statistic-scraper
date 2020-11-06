@@ -6,7 +6,7 @@ Created on Mon Oct 26 18:09:00 2020
 @author: Juan Penalta Rodríguez y Michaelle Valenzuela Sangoquiza
 """
 from bs4 import BeautifulSoup
-import requests
+import Utils as utils
 
 PLAYER_NAME_FIELD = 1
 TOTAL_POINTS_FIELD = 2
@@ -26,8 +26,8 @@ SEASON_TEAMS_URL = 'http://acb.com/club/index/temporada_id/{0}'
 
 class ACBScraper:
     
-    def __init__(self, logger):
-        self.logger = logger
+    def __init__(self):
+        self.logger = utils.getLogger('ACBScrapper')
 
     def isPlayer(self, fields):
         return len(fields)>5 and fields[1].text!='Total'  and fields[1].text!='Equipo' and fields[1].text!='Equipo'
@@ -103,7 +103,7 @@ class ACBScraper:
         local_players = []
         visit_players = []
         
-        response= requests.get( STATISTICS_URL.format(game_id))  
+        response= utils.getRequest(STATISTICS_URL.format(game_id))  
         soup = BeautifulSoup(response.text,"html.parser")
       
         date = soup.find('div', {'class':'datos_evento'}).find("span").text
@@ -129,7 +129,7 @@ class ACBScraper:
      
     def getTeamGames(self, team_id, season):
         url = GAMES_URL.format(team_id, season)
-        response= requests.get(url)
+        response= utils.getRequest(url)
         soup = BeautifulSoup(response.text,"html.parser")
         
         games_ids=[]
@@ -147,7 +147,7 @@ class ACBScraper:
     
     def getSeasonTeams(self, season):
         url = SEASON_TEAMS_URL.format(season)
-        response = requests.get(url)
+        response = utils.getRequest(url)
         soup = BeautifulSoup(response.text,"html.parser")
         
         teams_list = soup.findAll('article',{'class':'club'})

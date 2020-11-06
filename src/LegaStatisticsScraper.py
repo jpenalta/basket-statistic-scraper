@@ -7,7 +7,7 @@ Created on Sun Nov  1 14:59:20 2020
 """
 
 from bs4 import BeautifulSoup
-import requests
+import Utils as utils
 
 
 PLAYER_NAME_FIELD = 2
@@ -32,8 +32,8 @@ SEASON_TEAMS_URL ='http://web.legabasket.it/team/tbd.phtml?club={0}&type=d1&from
 
 
 class LegaScraper:
-    def __init__(self, logger):
-        self.logger = logger
+    def __init__(self):
+        self.logger = utils.getLogger('LegaScraper')
         
     def isPlayer(self, fields):
         return fields!= None and fields[PLAYER_NAME_FIELD].text != 'Totali' and fields[PLAYER_NAME_FIELD].text != 'Squadra'
@@ -103,7 +103,7 @@ class LegaScraper:
         local_players = []
         visit_players = []
         
-        response= requests.get( GAME_STATISTICS_URL.format(game_id))
+        response= utils.getRequest( GAME_STATISTICS_URL.format(game_id))
         soup = BeautifulSoup(response.text,"html.parser")
       
         date = soup.find('div', {'class','page-title'}).text[0:11].strip()
@@ -134,7 +134,7 @@ class LegaScraper:
     def getTeamGames(self, team_id, season):
         
         url = GAMES_URL.format(team_id, season)
-        response= requests.get(url)
+        response= utils.getRequest(url)
         soup = BeautifulSoup(response.text,"html.parser")
         
         games_ids=[]
@@ -155,7 +155,7 @@ class LegaScraper:
         teams_ids = []
         
         url = SEASON_TEAMS_URL.format(season)
-        response = requests.get(url)
+        response = utils.getRequest(url)
         soup = BeautifulSoup(response.text,"html.parser")
         
         teams = soup.find('select', {'name':'club'}).findAll('option')

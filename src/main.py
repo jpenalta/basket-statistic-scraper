@@ -9,7 +9,7 @@ import Utils as utils
 from LeagueScraperFactory import ScraperFactory
 
 
-logger = utils.getLogger()
+logger = utils.getLogger('basketScraper')
 args = utils.getArgs()
 
 logger.info("Get args from command line")

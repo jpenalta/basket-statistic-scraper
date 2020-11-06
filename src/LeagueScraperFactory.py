@@ -21,9 +21,9 @@ class ScraperFactory:
         factory = None
         
         if league == ACB: 
-            factory = ACBScraper(self.logger)
+            factory = ACBScraper()
         elif league == LEGA:
-            factory = LegaScraper(self.logger)
+            factory = LegaScraper()
         else: 
             self.logger.error("The factory not exists, valid factorys are: acb,...")
                

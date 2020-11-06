@@ -9,6 +9,7 @@ import logging
 import os
 import csv
 import argparse
+import requests
 
 
 HEADER_LIST = ['league','game_date','local_team','local_team_points'
@@ -29,9 +30,9 @@ def getArgs():
     args = parser.parse_args()
     return args
 
-def getLogger():
+def getLogger(logger_name):
     # create logger
-    logger = logging.getLogger('basketScraper')
+    logger = logging.getLogger(logger_name)
     logger.setLevel(logging.DEBUG)
     
     # create console handler and set level to debug
@@ -60,3 +61,6 @@ def writeToCSV(file_path, player_list):
         writer = csv.writer(csvFile)
         for player in player_list:
             writer.writerow(player)
+            
+def getRequest(url):
+    return requests.get( url)
