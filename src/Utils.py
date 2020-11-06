@@ -10,6 +10,7 @@ import os
 import csv
 import argparse
 import requests
+import time
 
 
 HEADER_LIST = ['league','game_date','local_team','local_team_points'
@@ -21,6 +22,9 @@ HEADER_LIST = ['league','game_date','local_team','local_team_points'
                ,'rebouts','assists','fouls','received_fouls']
 
 FILE_PATTER = "players_{0}_{1}_{2}.csv"
+
+MAX_RESPONSE_TIME = 0.5
+DELAY_MULT = 5
 
 def getArgs():
     parser = argparse.ArgumentParser()
@@ -62,5 +66,16 @@ def writeToCSV(file_path, player_list):
         for player in player_list:
             writer.writerow(player)
             
-def getRequest(url):
-    return requests.get( url)
+def getRequest(url, logger):
+    start_time = time.time()
+    
+    response = requests.get(url)
+    
+    response_delay = time.time() - start_time
+    if response_delay > MAX_RESPONSE_TIME:
+        delay = DELAY_MULT * response_delay
+        logger.info("Delay response time: {0}, sleep for: {1} ".format(response_delay, delay))
+        time.sleep(delay)
+    
+    return response
+

@@ -103,7 +103,8 @@ class LegaScraper:
         local_players = []
         visit_players = []
         
-        response= utils.getRequest( GAME_STATISTICS_URL.format(game_id))
+        url = GAME_STATISTICS_URL.format(game_id)
+        response= utils.getRequest( url, self.logger )
         soup = BeautifulSoup(response.text,"html.parser")
       
         date = soup.find('div', {'class','page-title'}).text[0:11].strip()
@@ -134,7 +135,7 @@ class LegaScraper:
     def getTeamGames(self, team_id, season):
         
         url = GAMES_URL.format(team_id, season)
-        response= utils.getRequest(url)
+        response= utils.getRequest(url, self.logger)
         soup = BeautifulSoup(response.text,"html.parser")
         
         games_ids=[]
@@ -155,7 +156,7 @@ class LegaScraper:
         teams_ids = []
         
         url = SEASON_TEAMS_URL.format(season)
-        response = utils.getRequest(url)
+        response = utils.getRequest(url, self.logger)
         soup = BeautifulSoup(response.text,"html.parser")
         
         teams = soup.find('select', {'name':'club'}).findAll('option')
